@@ -6,6 +6,7 @@ import {
   updateIntervention, 
   deleteIntervention,
   getInterventionsByMaintainerId,
+  updateInterventionReport,
   updateInterventionStatus 
 } from '../../handlers/interventionHandler';
 import { 
@@ -15,6 +16,7 @@ import {
   getInterventionsSchema, 
   updateInterventionSchema,
   updateInterventionStatusSchema,
+  updateInterventionReportSchema,
   getInterventionsByMaintainerSchema
 } from './intervention.schema';
 
@@ -26,6 +28,8 @@ const InterventionRoutes = async (fastify: FastifyInstance) => {
   fastify.delete('/:id', { schema: deleteInterventionSchema }, deleteIntervention);
   fastify.get('/maintainer/:idMaintainer', { schema: getInterventionsByMaintainerSchema },  getInterventionsByMaintainerId); 
   fastify.patch('/:id/status',  { schema: updateInterventionStatusSchema },  updateInterventionStatus);
+  fastify.put('/:id/report', { schema: updateInterventionReportSchema }, updateInterventionReport);
+
 };
 
 export default InterventionRoutes;

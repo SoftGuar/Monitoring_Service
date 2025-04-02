@@ -1,6 +1,8 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { InterventionService } from '../services/interventionService';
 import { CreateInterventionInput, UpdateInterventionInput } from '../models/intervention.model';
+import { UpdateInterventionReportInput } from '../models/intervention.model';
+
 import { InterventionStatus } from '@prisma/client';
 
 export const createIntervention = async (
@@ -92,6 +94,30 @@ export const updateInterventionStatus = async (
       return reply.code(400).send({ success: false, message: error instanceof Error ? error.message : 'An unexpected error occurred' });
     }
   };
+
+  export const updateInterventionReport = async (
+    request: FastifyRequest<{ Params: { id: string }, Body: UpdateInterventionReportInput }>,
+    reply: FastifyReply
+  ) => {
+    try {
+      const { id } = request.params;
+      const reportData = request.body;
+      
+      const intervention = await InterventionService.getInterventionById(Number(id));
+      if (!intervention) {
+        return reply.code(404).send({ success: false, message: 'Intervention not found' });
+      }
+      
+      const updatedReport = await InterventionService.updateInterventionReport(Number(id), reportData);
+      return reply.code(200).send({ success: true, data: updatedReport });
+    } catch (error) {
+      return reply.code(400).send({ 
+        success: false, 
+        message: error instanceof Error ? error.message : 'An unexpected error occurred' 
+      });
+    }
+  };
+  
   
   
 export const deleteIntervention = async (

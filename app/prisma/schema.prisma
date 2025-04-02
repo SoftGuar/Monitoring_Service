@@ -168,9 +168,20 @@ model Intervention {
   status       InterventionStatus @default(pending)
   end_date     DateTime
   start_date   DateTime   @default(now())
+  report         InterventionReport?
   Maintainer   Maintainer @relation(fields: [idMaintainer], references: [id])
   Dispositive   Dispositive       @relation(fields: [idDispositive], references: [id])
 }
+
+model InterventionReport {
+  id             Int          @id @default(autoincrement())
+  interventionId Int          @unique
+  title          String
+  description    String
+  created_at     DateTime     @default(now())
+  intervention   Intervention @relation(fields: [interventionId], references: [id], onDelete: Cascade)
+}
+
 
 enum InterventionStatus {
   done

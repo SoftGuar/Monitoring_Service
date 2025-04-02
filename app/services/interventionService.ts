@@ -1,4 +1,4 @@
-import { InterventionModel, CreateInterventionInput, UpdateInterventionInput } from '../models/intervention.model';
+import { InterventionModel, CreateInterventionInput, UpdateInterventionInput , UpdateInterventionReportInput} from '../models/intervention.model';
 import { InterventionStatus } from '@prisma/client'; 
 
 
@@ -24,6 +24,11 @@ export const InterventionService = {
   updateIntervention: async (id: number, interventionData: UpdateInterventionInput) => {
     return InterventionModel.update(id, interventionData);
   },
+
+  updateInterventionReport: async (interventionId: number, reportData: UpdateInterventionReportInput) => {
+    return InterventionModel.updateReport(interventionId, reportData);
+  },
+
 
   
   updateInterventionStatus: async (id: number, status: InterventionStatus) => {
