@@ -40,7 +40,7 @@ describe('InterventionService', () => {
         idDispositive: 1,
         description: 'Test Description',
         status:'pending',
-        type: 'maintenance',
+        type: 'currative',
         start_date:new Date ('2025-4-1'),
         end_date: new Date('2025-05-01')
       };
@@ -63,7 +63,7 @@ describe('InterventionService', () => {
         idMaintainer: 1,
         idDispositive: 1,
         description: 'Test Description',
-        type: 'maintenance',
+        type: 'currative',
         status: InterventionStatus.pending,
         end_date: new Date('2025-05-01'),
         start_date: new Date('2025-04-01')
