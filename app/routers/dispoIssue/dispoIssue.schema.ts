@@ -5,7 +5,6 @@ export const createDispoIssueSchema = {
   body: Type.Object({
     dispositiveId: Type.Number(),
     description: Type.String(),
-    date: Type.String({ format: 'date-time' }),
     status: Type.String({ default: 'pending' }),
     maintainerId: Type.Optional(Type.Union([Type.Number(), Type.Null()]))
   }),
@@ -16,9 +15,11 @@ export const createDispoIssueSchema = {
         id: Type.Number(),
         dispositiveId: Type.Number(),
         description: Type.String(),
-        date: Type.String({ format: 'date-time' }),
         status: Type.String(),
-        maintainerId: Type.Union([Type.Number(), Type.Null()])
+        maintainerId: Type.Union([Type.Number(), Type.Null()]),
+        created_at: Type.String({ format: 'date-time' }),
+        updated_at: Type.String({ format: 'date-time' })
+
       })
     })
   }
@@ -34,9 +35,10 @@ export const getDispoIssuesSchema = {
           id: Type.Number(),
           dispositiveId: Type.Number(),
           description: Type.String(),
-          date: Type.String({ format: 'date-time' }),
           status: Type.String(),
           maintainerId: Type.Union([Type.Number(), Type.Null()]),
+          created_at: Type.String({ format: 'date-time' }),
+          updated_at: Type.String({ format: 'date-time' }),
           Dispositive: Type.Object({
             id: Type.Number(),
             type: Type.String(),
@@ -76,9 +78,10 @@ export const getDispoIssueByIdSchema = {
         id: Type.Number(),
         dispositiveId: Type.Number(),
         description: Type.String(),
-        date: Type.String({ format: 'date-time' }),
         status: Type.String(),
         maintainerId: Type.Union([Type.Number(), Type.Null()]),
+        created_at: Type.String({ format: 'date-time' }),
+        updated_at: Type.String({ format: 'date-time' }),
         Dispositive: Type.Object({
             id: Type.Number(),
             type: Type.String(),
@@ -122,9 +125,10 @@ export const getDispoIssuesByDispositiveIdSchema = {
           id: Type.Number(),
           dispositiveId: Type.Number(),
           description: Type.String(),
-          date: Type.String({ format: 'date-time' }),
           status: Type.String(),
           maintainerId: Type.Union([Type.Number(), Type.Null()]),
+          created_at: Type.String({ format: 'date-time' }),
+          updated_at: Type.String({ format: 'date-time' }),  
           Dispositive: Type.Object({
             id: Type.Number(),
             type: Type.String(),
@@ -167,9 +171,10 @@ export const assignMaintainerToDispoIssueSchema = {
         id: Type.Number(),
         dispositiveId: Type.Number(),
         description: Type.String(),
-        date: Type.String({ format: 'date-time' }),
         status: Type.String(),
         maintainerId: Type.Number(),
+        created_at: Type.String({ format: 'date-time' }),
+        updated_at: Type.String({ format: 'date-time' }),
         Dispositive: Type.Object({
             id: Type.Number(),
             type: Type.String(),
@@ -218,9 +223,10 @@ export const updateDispoIssueSchema = {
         id: Type.Number(),
         dispositiveId: Type.Number(),
         description: Type.String(),
-        date: Type.String({ format: 'date-time' }),
         status: Type.String(),
         maintainerId: Type.Union([Type.Number(), Type.Null()]),
+        created_at: Type.String({ format: 'date-time' }),
+        updated_at: Type.String({ format: 'date-time' }),
         Dispositive: Type.Object({
             id: Type.Number(),
             type: Type.String(),

@@ -3,7 +3,6 @@ import prisma from '../services/prismaService';
 export interface CreateDispoIssueInput {
   dispositiveId: number;
   description: string;
-  date: Date;
   status?: string;
   maintainerId?: number | null; 
 }
@@ -40,7 +39,6 @@ export const DispoIssueModel = {
               last_name: true,
               email: true,
               phone: true,
-              // password est explicitement omis
             }
           }
         }
@@ -63,7 +61,6 @@ export const DispoIssueModel = {
               last_name: true,
               email: true,
               phone: true,
-              // password est explicitement omis
             }
           }
         }
@@ -87,7 +84,6 @@ export const DispoIssueModel = {
               last_name: true,
               email: true,
               phone: true,
-              // password est explicitement omis
             }
           }
         }
@@ -112,7 +108,6 @@ export const DispoIssueModel = {
               last_name: true,
               email: true,
               phone: true,
-              // password est explicitement omis
             }
           }
         }
@@ -137,7 +132,6 @@ export const DispoIssueModel = {
               last_name: true,
               email: true,
               phone: true,
-              // password est explicitement omis
             }
           }
         }
