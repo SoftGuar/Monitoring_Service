@@ -48,10 +48,12 @@ model Dispositive {
   state              String
   user_id            Int?
   product_id         Int
+  created_at         DateTime             @default(now())
+  updated_at         DateTime
   DispoIssue         DispoIssue[]
-  Intervention Intervention[]
   Product            Product              @relation(fields: [product_id], references: [id], onDelete: Cascade)
   User               User?                @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  Intervention       Intervention[]
   ProductTransaction ProductTransaction[]
 }
 
@@ -81,6 +83,8 @@ model Product {
   name             String
   description      String?
   price            Float
+  created_at       DateTime           @default(now())
+  updated_at       DateTime
   Dispositive      Dispositive[]
   ProductQuotation ProductQuotation[]
 }
@@ -89,26 +93,31 @@ model ProductQuotation {
   quotation_id Int
   product_id   Int
   count        Int
+  created_at   DateTime  @default(now())
+  updated_at   DateTime
   Product      Product   @relation(fields: [product_id], references: [id], onDelete: Cascade)
   Quotation    Quotation @relation(fields: [quotation_id], references: [id], onDelete: Cascade)
-
 
   @@id([quotation_id, product_id])
 }
 
 model ProductTransaction {
-  id             Int         @id @default(autoincrement())
   transaction_id Int
   dispositive_id Int
   isConfirmed    Boolean     @default(false)
+  created_at     DateTime    @default(now())
+  updated_at     DateTime
   Dispositive    Dispositive @relation(fields: [dispositive_id], references: [id])
-  Transaction    Transaction @relation(fields: [transaction_id], references: [id])
+  Transaction    Transaction @relation(fields: [transaction_id], references: [id], onDelete: Cascade)
+
+  @@id([transaction_id, dispositive_id])
 }
 
 model Quotation {
   id               Int                @id @default(autoincrement())
   user_id          Int
-  date             DateTime
+  created_at       DateTime           @default(now())
+  updated_at       DateTime
   ProductQuotation ProductQuotation[]
   User             User               @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
@@ -127,25 +136,25 @@ model Transaction {
   id                 Int                  @id @default(autoincrement())
   user_id            Int
   commercial_id      Int
-  processed          Boolean              @default(false)
-  date               DateTime
+  created_at         DateTime             @default(now())
+  updated_at         DateTime
   ProductTransaction ProductTransaction[]
   Commercial         Commercial           @relation(fields: [commercial_id], references: [id], onDelete: Cascade)
   User               User                 @relation(fields: [user_id], references: [id], onDelete: Cascade)
 }
 
 model User {
-  id           Int            @id @default(autoincrement())
-  email        String         @unique
-  first_name   String
-  last_name    String
-  password     String
-  phone        String?
-  created_at   DateTime       @default(now())
-  Dispositive  Dispositive[]
-  Quotation    Quotation[]
-  Transaction  Transaction[]
-  Helper       Helper[]       @relation("UserHelpers")
+  id          Int           @id @default(autoincrement())
+  email       String        @unique
+  first_name  String
+  last_name   String
+  password    String
+  phone       String?
+  created_at  DateTime      @default(now())
+  Dispositive Dispositive[]
+  Quotation   Quotation[]
+  Transaction Transaction[]
+  Helper      Helper[]      @relation("UserHelpers")
 }
 
 model DispoIssue {
@@ -156,21 +165,21 @@ model DispoIssue {
   status        String      @default("pending")
   maintainerId  Int?
   Dispositive   Dispositive @relation(fields: [dispositiveId], references: [id])
-  Maintainer    Maintainer?  @relation(fields: [maintainerId], references: [id])
+  Maintainer    Maintainer? @relation(fields: [maintainerId], references: [id])
 }
 
 model Intervention {
-  id Int       @id @default(autoincrement())
-  idMaintainer Int
-  idDispositive       Int  
-  description  String
-  type         String
-  status       InterventionStatus @default(pending)
-  end_date     DateTime
-  start_date   DateTime   @default(now())
-  report         InterventionReport?
-  Maintainer   Maintainer @relation(fields: [idMaintainer], references: [id])
-  Dispositive   Dispositive       @relation(fields: [idDispositive], references: [id])
+  idMaintainer  Int
+  description   String
+  type          String
+  end_date      DateTime
+  start_date    DateTime            @default(now())
+  id            Int                 @id @default(autoincrement())
+  status        InterventionStatus  @default(pending)
+  idDispositive Int
+  Dispositive   Dispositive         @relation(fields: [idDispositive], references: [id])
+  Maintainer    Maintainer          @relation(fields: [idMaintainer], references: [id])
+  report        InterventionReport?
 }
 
 model InterventionReport {
@@ -182,11 +191,9 @@ model InterventionReport {
   intervention   Intervention @relation(fields: [interventionId], references: [id], onDelete: Cascade)
 }
 
-
 enum InterventionStatus {
   done
   inProgress
   pending
   rescheduled
 }
-

@@ -7,6 +7,7 @@ const interventionReportSchema = Type.Object({
   title: Type.String(),
   description: Type.String(),
   created_at: Type.String({ format: 'date-time' }),
+  updated_at: Type.String({ format: 'date-time' })
 });
 
 
@@ -33,6 +34,8 @@ export const createInterventionSchema = {
         status: Type.Enum(InterventionStatus),
         end_date: Type.String({ format: 'date-time' }),
         start_date: Type.String({ format: 'date-time' }),
+        created_at: Type.String({ format: 'date-time' }),
+        updated_at: Type.String({ format: 'date-time' }),
         report: interventionReportSchema
       })
     })
@@ -76,7 +79,9 @@ tags: ['Intervention : get all interventions'],
           type: Type.String(),
           status: Type.Enum(InterventionStatus),
           end_date: Type.String({ format: 'date-time' }), 
-          start_date: Type.String({ format: 'date-time' }), 
+          start_date: Type.String({ format: 'date-time' }),
+          created_at: Type.String({ format: 'date-time' }),
+          updated_at: Type.String({ format: 'date-time' }),  
           report: interventionReportSchema
 
         })
@@ -103,6 +108,8 @@ export const getInterventionByIdSchema = {
         status: Type.Enum(InterventionStatus),
         end_date: Type.String({ format: 'date-time' }), 
         start_date: Type.String({ format: 'date-time' }) ,
+        created_at: Type.String({ format: 'date-time' }),
+        updated_at: Type.String({ format: 'date-time' }),
         report: interventionReportSchema
 
       })
@@ -133,6 +140,8 @@ export const getInterventionsByMaintainerSchema = {
             status: Type.Enum(InterventionStatus),
             end_date: Type.String({ format: 'date-time' }), 
             start_date: Type.String({ format: 'date-time' }),
+            created_at: Type.String({ format: 'date-time' }),
+            updated_at: Type.String({ format: 'date-time' }),    
             report: interventionReportSchema
 
           })
@@ -176,6 +185,8 @@ export const updateInterventionSchema = {
         status: Type.Enum(InterventionStatus),
         end_date: Type.String({ format: 'date-time' }), 
         start_date: Type.String({ format: 'date-time' }) ,
+        created_at: Type.String({ format: 'date-time' }),
+        updated_at: Type.String({ format: 'date-time' }),
         report: interventionReportSchema
 
       })
@@ -204,6 +215,8 @@ export const updateInterventionStatusSchema = {
           status: Type.Enum(InterventionStatus),
           end_date: Type.String({ format: 'date-time' }),
           start_date: Type.String({ format: 'date-time' }) ,
+          created_at: Type.String({ format: 'date-time' }),
+          updated_at: Type.String({ format: 'date-time' }),  
           report: interventionReportSchema
 
         })
