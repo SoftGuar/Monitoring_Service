@@ -1,4 +1,5 @@
 import { DispoIssueModel, CreateDispoIssueInput, UpdateDispoIssueInput } from '../models/dispoIssue.model';
+import { DispoIssueNotFoundError, MaintainerAssignmentError } from '../errors/dispoIssueErrors';
 
 export const DispoIssueService = {
   createDispoIssue: async (dispoIssueData: CreateDispoIssueInput) => {
@@ -20,7 +21,7 @@ export const DispoIssueService = {
   assignMaintainerToDispoIssue: async (id: number, maintainerId: number ) => {
     const dispoIssue = await DispoIssueModel.findById(id);
     if (!dispoIssue) {
-      throw new Error('DispoIssue not found');
+      throw new DispoIssueNotFoundError(id);
     }
     
     return await DispoIssueModel.assignMaintainer(id, maintainerId);
@@ -29,7 +30,7 @@ export const DispoIssueService = {
   updateDispoIssue: async (id: number, dispoIssueData: UpdateDispoIssueInput) => {
     const dispoIssue = await DispoIssueModel.findById(id);
     if (!dispoIssue) {
-      throw new Error('DispoIssue not found');
+      throw new DispoIssueNotFoundError(id);
     }
     
     return await DispoIssueModel.update(id, dispoIssueData);
@@ -38,7 +39,7 @@ export const DispoIssueService = {
   deleteDispoIssue: async (id: number) => {
     const dispoIssue = await DispoIssueModel.findById(id);
     if (!dispoIssue) {
-      throw new Error('DispoIssue not found');
+      throw new DispoIssueNotFoundError(id);
     }
     
     return await DispoIssueModel.delete(id);
