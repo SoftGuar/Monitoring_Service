@@ -1,5 +1,6 @@
 import { Type } from '@sinclair/typebox';
 import { InterventionStatus } from '@prisma/client';
+import { CommonErrorResponses } from '../baseSchema';
 
 const interventionReportSchema = Type.Object({
   id: Type.Number(),
@@ -38,7 +39,8 @@ export const createInterventionSchema = {
         updated_at: Type.String({ format: 'date-time' }),
         report: interventionReportSchema
       })
-    })
+    }),
+    ...CommonErrorResponses,
   }
 };
 
@@ -57,10 +59,7 @@ export const updateInterventionReportSchema = {
       success: Type.Literal(true),
       data: interventionReportSchema
     }),
-    404: Type.Object({
-      success: Type.Literal(false),
-      message: Type.String()
-    })
+    ...CommonErrorResponses,
   }
 };
 
@@ -86,7 +85,8 @@ tags: ['Intervention : get all interventions'],
 
         })
       )
-    })
+    }),
+    ...CommonErrorResponses,
   }
 };
 
@@ -114,10 +114,7 @@ export const getInterventionByIdSchema = {
 
       })
     }),
-    404: Type.Object({
-      success: Type.Literal(false),
-      message: Type.String()
-    })
+    ...CommonErrorResponses,
   }
 };
 
@@ -147,10 +144,7 @@ export const getInterventionsByMaintainerSchema = {
           })
         )
       }),
-      404: Type.Object({
-        success: Type.Literal(false),
-        message: Type.String()
-      })
+      ...CommonErrorResponses,
     }
   };  
 
@@ -190,7 +184,8 @@ export const updateInterventionSchema = {
         report: interventionReportSchema
 
       })
-    })
+    }),
+    ...CommonErrorResponses,
   }
 };
 
@@ -221,10 +216,7 @@ export const updateInterventionStatusSchema = {
 
         })
       }),
-      400: Type.Object({
-        success: Type.Literal(false),
-        message: Type.String()
-      })
+      ...CommonErrorResponses,
     }
   };
   
@@ -239,6 +231,7 @@ export const deleteInterventionSchema = {
     200: Type.Object({
       success: Type.Literal(true),
       message: Type.String()
-    })
+    }),
+    ...CommonErrorResponses,
   }
 };
