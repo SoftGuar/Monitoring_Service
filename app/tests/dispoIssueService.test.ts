@@ -33,7 +33,6 @@ describe('DispoIssueService', () => {
       };
       const createDispoIssueInput: CreateDispoIssueInput = {
         dispositiveId: 1,
-        date : new Date ('2025-4-1'),
         description: 'Test Description'
       };
       (DispoIssueModel.create as jest.Mock).mockResolvedValue(mockDispoIssue);
