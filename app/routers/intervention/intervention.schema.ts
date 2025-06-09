@@ -154,6 +154,40 @@ export const getInterventionsByMaintainerSchema = {
     }
   };  
 
+export const getInterventionsByidDeviceSchema = {
+    tags: ['Intervention : get device interventions'],
+
+    params: Type.Object({
+      idDispositive: Type.String()
+    }),
+    response: {
+      200: Type.Object({
+        success: Type.Literal(true),
+        data: Type.Array(
+          Type.Object({
+            id: Type.Number(),
+            idMaintainer: Type.Number(),
+            idDispositive: Type.Number(),
+            description: Type.String(),
+            type: Type.String(),
+            status: Type.Enum(InterventionStatus),
+            end_date: Type.String({ format: 'date-time' }), 
+            start_date: Type.String({ format: 'date-time' }),
+            created_at: Type.String({ format: 'date-time' }),
+            updated_at: Type.String({ format: 'date-time' }),    
+            report: interventionReportSchema
+
+          })
+        )
+      }),
+      404: Type.Object({
+        success: Type.Literal(false),
+        message: Type.String()
+      })
+    }
+  };  
+
+
 export const updateInterventionSchema = {
     tags: ['Intervention : Update Intervention'],
 

@@ -21,6 +21,12 @@ export const InterventionService = {
 
   },
 
+  getInterventionsByidDevice:async (idDispositive: number)=>{
+    return InterventionModel.getInterventionsByidDevice(idDispositive);
+
+  },
+
+
   updateIntervention: async (id: number, interventionData: UpdateInterventionInput) => {
     return InterventionModel.update(id, interventionData);
   },
