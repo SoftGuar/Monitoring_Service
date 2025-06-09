@@ -43,6 +43,23 @@ export const getInterventionsByMaintainerId = async (
   
       return reply.code(200).send({ success: true, data: maintainerInterventions });
   };
+
+export const getInterventionsByDeviceId = async (
+    request: FastifyRequest<{ Params: { idDispositive: string } }>,
+    reply: FastifyReply
+  ) => {
+    try {
+      const { idDispositive } = request.params;
+      const deviceInterventions = await InterventionService.getInterventionsByidDevice(Number(idDispositive));
+  
+      return reply.code(200).send({ success: true, data: deviceInterventions });
+  
+    } catch (error) {
+      console.error('Error fetching maintainer interventions:', error);
+      return reply.code(500).send({ success: false, message: 'An unexpected error occurred' });
+    }
+  };
+
   
   
 

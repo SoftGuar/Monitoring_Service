@@ -23,6 +23,12 @@ export const InterventionService = {
     return InterventionModel.getInterventionsByMaintainerId(idMaintainer);
   },
 
+  getInterventionsByidDevice:async (idDispositive: number)=>{
+    return InterventionModel.getInterventionsByidDevice(idDispositive);
+
+  },
+
+
   updateIntervention: async (id: number, interventionData: UpdateInterventionInput) => {
     const intervention = await InterventionModel.findById(id);
     if (!intervention) {

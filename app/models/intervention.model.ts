@@ -92,6 +92,21 @@ export const InterventionModel = {
         throw error;
       }
   },
+
+    getInterventionsByidDevice: async(idDispositive: number) => {
+    try {
+        return await prisma.intervention.findMany({
+            where: { idDispositive },
+            include: {
+              report: true
+            }
+        });
+      } catch (error) {
+        console.error('Error getting maintainer interventions:', error);
+        throw error;
+      }
+  },
+
   
   update: async (id: number, interventionData: UpdateInterventionInput) => {
     try {
