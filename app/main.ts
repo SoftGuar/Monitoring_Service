@@ -5,6 +5,7 @@ import fastifySwagger from '@fastify/swagger';
 import fastifySwaggerUi from '@fastify/swagger-ui';
 import registerRoutes from './routers';
 import { PrismaClient } from '@prisma/client';
+import { writeReport } from './utils/executive_report';
 
 // Load environment variables from .env
 dotenv.config();
@@ -78,6 +79,7 @@ async function startServer() {
   try {
     await fastify.listen({ port, host });
     fastify.log.info(`Server started on port ${port}`);
+    setInterval(writeReport, 2 * 60 * 60 * 1000);
   } catch (err) {
     fastify.log.error(err);
     process.exit(1);
